@@ -58,20 +58,23 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+    if not run:
+        window.fill((0, 0, 0))
+        platfrom_1.update_l()
+        platfrom_2.update_r()
+        if delay > 100:
+            pong_ball.rect.x += speed_x
+            pong_ball.rect.y += speed_y
+        if pong_ball.rect.x >= 700 or pong_ball.rect.x <= 0:
+            run = True
+        if sprite.collide_rect(pong_ball, platfrom_1) or sprite.collide_rect(pong_ball, platfrom_2):
+            speed_x *= -1
+        if pong_ball.rect.y >= 665 or pong_ball.rect.y <= 35:
+            speed_y *= -1
 
-
-
-    window.fill((0, 0, 0))
-    platfrom_1.update_l()
-    platfrom_2.update_r()
-    if delay > 100:
-        pong_ball.rect.x += speed_x
-        pong_ball.rect.y += speed_y
-
-    pong_ball.reset()
-    platfrom_1.reset()
-    platfrom_2.reset()
-    delay += 1
-
-    clock.tick(FPS)
-    display.update()
+        pong_ball.reset()
+        platfrom_1.reset()
+        platfrom_2.reset()
+        delay += 1
+        clock.tick(FPS)
+        display.update()
